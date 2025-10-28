@@ -1,7 +1,7 @@
 import React from 'react'
 import ShowData from './pages/ShowData'
 import About from './pages/About'
-import Input from './pages/input'
+import Input from './pages/Inputnput'
 
 const App = () => {
   return (
