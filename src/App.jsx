@@ -1,7 +1,7 @@
 import React from 'react'
 import ShowData from './pages/ShowData'
 import About from './pages/About'
-import Input from './pages/Inputnput'
+import UserInput from './pages/UserInput'
 
 const App = () => {
   return (
@@ -18,12 +18,12 @@ const App = () => {
         <div className="absolute bg-[#161616] blur-2xl -left-40 rotate-18 -z-10 top-110 w-[90vh] h-full"></div>
       </div>
 
-      <Input />
+      <UserInput />
       <ShowData />
       <About />
 
       {/* <h1 className='fixed z-50 bottom-3 left-1/2 -translate-x-1/2 text-center opacity-60 text-[1.3vh] leading-4 w-full'>Made by <br /> Yash Singh Bisht . Shivam Sharma . Pratham Sharma</h1> */}
-      <h1 className='relative mt-2 text-center opacity-60 text-[1.3vh] leading-4 w-full'>Made by Yash Singh Bisht</h1>
+      <h1 className='relative z-50 mt-2 text-center opacity-60 text-[1.3vh] leading-4 w-full'>Made by Yash Singh Bisht</h1>
     </div>
   )
 }
