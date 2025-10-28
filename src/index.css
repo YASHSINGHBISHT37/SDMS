@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: reg;
+  src: url('/fonts/NeueMontreal-Regular.otf');
+}
+
+@font-face {
+  font-family: lig;
+  src: url('/fonts/NeueMontreal-Light.otf');
+}
+
+body {
+  color: white;
+  font-family: reg;
+}
+
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;      
+}

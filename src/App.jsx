@@ -1,0 +1,31 @@
+import React from 'react'
+import Input from './pages/input'
+import ShowData from './pages/ShowData'
+import About from './pages/About'
+
+const App = () => {
+  return (
+    <div className='bg-[#161616] w-screen min-h-screen h-auto p-3 pt-0 select-none'>
+      <div className='Background-Gradient absolute inset-0 z-1 overflow-hidden'>
+        <div className='fixed top-0 left-0 bg-[#161616]/7 w-full h-screen'></div>
+        <div className="absolute bg-white blur-2xl -left-15 rotate-18 -z-1 -top-17 w-[90vh] h-80"></div>
+        <div className="absolute bg-blue-300 blur-2xl -left-10 rotate-18 -z-1 top-38 w-[70vh] h-20"></div>
+        <div className="absolute bg-blue-500 blur-2xl -left-10 rotate-18 -z-1 top-50 w-[70vh] h-20"></div>
+        <div className="absolute bg-blue-600 blur-2xl -left-10 rotate-18 -z-1 top-65 w-[70vh] h-20"></div>
+        <div className="absolute bg-blue-700 blur-2xl -left-10 rotate-18 -z-1 top-80 w-[70vh] h-20"></div>
+        <div className="absolute bg-blue-900 blur-2xl -left-10 rotate-18 -z-1 top-94 w-[70vh] h-20"></div>
+        <div className="absolute move bg-[#161616] blur-[5vh] rounded-full -left-40 -z-1 top-70 w-90 h-70"></div>
+        <div className="absolute bg-[#161616] blur-2xl -left-40 rotate-18 -z-10 top-110 w-[90vh] h-full"></div>
+      </div>
+
+      <Input />
+      <ShowData />
+      <About />
+
+      {/* <h1 className='fixed z-50 bottom-3 left-1/2 -translate-x-1/2 text-center opacity-60 text-[1.3vh] leading-4 w-full'>Made by <br /> Yash Singh Bisht . Shivam Sharma . Pratham Sharma</h1> */}
+      <h1 className='relative mt-2 text-center opacity-60 text-[1.3vh] leading-4 w-full'>Made by Yash Singh Bisht</h1>
+    </div>
+  )
+}
+
+export default App
