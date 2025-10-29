@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ShowData from './pages/ShowData'
 import About from './pages/About'
 import UserInput from './pages/UserInput'
+import StockFetcher from './pages/StockFetcher'
 
 const App = () => {
+  const [stockData, setStockData] = useState(null)
   return (
     <div className='bg-[#161616] w-screen min-h-screen h-auto p-3 pt-0 select-none'>
       <div className='Background-Gradient absolute inset-0 z-1 overflow-hidden'>
@@ -18,12 +20,12 @@ const App = () => {
         <div className="absolute bg-[#161616] blur-2xl -left-40 rotate-18 -z-10 top-110 w-[90vh] h-full"></div>
       </div>
 
-      <UserInput />
-      <ShowData />
-      <About />
+      <UserInput setStockData={setStockData} />
+      <ShowData data={stockData} />
+      <About data={stockData}/>
+      {/* <StockFetcher/> */}
 
-      {/* <h1 className='fixed z-50 bottom-3 left-1/2 -translate-x-1/2 text-center opacity-60 text-[1.3vh] leading-4 w-full'>Made by <br /> Yash Singh Bisht . Shivam Sharma . Pratham Sharma</h1> */}
-      <h1 className='relative z-50 mt-2 text-center opacity-60 text-[1.3vh] leading-4 w-full'>Made by Yash Singh Bisht</h1>
+      <h1 className='relative z-50 mt-4 text-center opacity-60 text-[1.3vh] leading-4 w-full'>Made by <br /> Yash Singh Bisht . Shivam Sharma . Pratham Sharma</h1>
     </div>
   )
 }
