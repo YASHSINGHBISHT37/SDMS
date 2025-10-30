@@ -1,0 +1,4 @@
+Flask
+flask-cors
+finnhub-python
+gunicorn
