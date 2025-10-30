@@ -9,6 +9,14 @@ CORS(app)
 API = 'd415j31r01qo6qdf1ga0d415j31r01qo6qdf1gag'
 finnhub_client = finnhub.Client(api_key=API)
 
+# ✅ Home route (fixes 404 on root)
+@app.route('/')
+def home():
+    return jsonify({
+        "message": "Welcome to the Stock Market Data API 🚀",
+        "usage": "Use /api/stock?symbol=AAPL to fetch stock data."
+    })
+
 
 @app.route('/api/stock', methods=['GET'])
 def stockData():

@@ -31,7 +31,7 @@ const UserInput = ({setStockData}) => {
     const stockData = async (symbol) => {
         if (!symbol) return
         try {
-            const res = await axios.get(`http://127.0.0.1:5000/api/stock?symbol=${symbol}`)
+            const res = await axios.get(`https://smds.up.railway.app/api/stock?symbol=${symbol}`)
             setStockData(res.data)
             setSuggestions([])
         } catch (error) {
