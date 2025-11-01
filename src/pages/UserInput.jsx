@@ -42,8 +42,8 @@ const UserInput = ({setStockData}) => {
     return (
         <div className='relative z-99 space-y-1'>
 
-            <div className='relative'>
-                <div className='relative z-50 backdrop-blur-[10vh] border border-blue-500/40 rounded-2xl h-10 w-full pl-3 pr-1 text-blue-500 flex items-center space-x-2'>
+            <div className='relative mt-8'>
+                <div className='relative z-50 backdrop-blur-[vh] bg-white/90 border border-blue-500/40 rounded-2xl h-10 w-full pl-3 pr-1 text-blue-500 flex items-center space-x-2'>
                     <input
                         ref={inputRef}
                         value={userInput}
@@ -57,16 +57,16 @@ const UserInput = ({setStockData}) => {
                 </div>
 
                 {suggestions.length > 0 && (
-                    <ul className='Suggestions backdrop-blur-[1vh] bg absolute w-full max-h-50 top-0 border border-[#161616]/60 rounded-2xl overflow-auto'>
+                    <ul className='Suggestions bg-[#161616]/40 backdrop-blur-[.6vh] bg absolute w-full max-h-50 top-0 border border-blue-500/30 rounded-2xl overflow-auto'>
                         {suggestions.map((stock, i) => (
                             <li
                                 key={i}
                                 onClick={() => stockData(stock.symbol)}
-                                className={`text-[#161616] flex justify-between items-center p-1 px-3 cursor-pointer active:bg-[#161616]/20 hover:bg-[#161616]/10
-                                ${i === suggestions.length - 1 ? 'border-0' : 'border-b'}
+                                className={`text-white flex justify-between items-center p-1 px-3 cursor-pointer active:bg-[#161616]/20 hover:bg-[#161616]/10
+                                ${i === suggestions.length - 1 ? 'border-0' : 'border-b border-blue-500/30'}
                                 ${i === 0 ? 'mt-9.5' : ''}`}>
-                                <p className="font-bold">{stock.symbol}</p>
-                                <p className="text-[1.6vh] opacity-70">{stock.description}</p>
+                                <p className="font-">{stock.symbol}</p>
+                                <p className="text-[1.5vh] opacity-70">{stock.description}</p>
                             </li>
                         ))}
                     </ul>
