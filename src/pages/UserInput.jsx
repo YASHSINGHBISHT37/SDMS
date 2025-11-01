@@ -53,7 +53,7 @@ const UserInput = ({setStockData}) => {
                         className='w-full h-full outline-0' />
                     <button
                         onClick={() => stockData(userInput.toUpperCase())}
-                        className='bg-blue-600 cursor-pointer backdrop-blur-2xl rounded-[1.4vh] border border-white/40 text-white w-20 p-1 active:bg-[#161616]/70 transition-all duration-75 ease-in-out'>Search</button>
+                        className='bg-blue-600 cursor-pointer backdrop-blur-2xl rounded-[1.4vh] border border-white/40 text-white w-20 p-1 active:bg-blue-500 active:border-0 transition-all duration-150 ease-in-out'>Search</button>
                 </div>
 
                 {suggestions.length > 0 && (
