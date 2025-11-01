@@ -9,16 +9,18 @@ const About = ({ data }) => {
         if (typeof value === 'number') return value.toFixed(2)
         return value
     }
-
+    
     const marketStats = [
+        { label: 'Exchange', data: formatValue(data.exchange) },
+        { label: 'Currency', data: formatValue(data.currency) },
         { label: 'Open', data: formatValue(data.open) },
-        { label: 'Volume', data: data.volume },
+        { label: 'Prev Close', data: formatValue(data.previousClose) },
+        { label: 'Volume', data: formatValue(data.volume) },
         { label: 'P/E Ratio', data: formatValue(data.peRatio) },
-        { label: 'Market Cap', data: formatValue(data.marketCap) },
-        { label: 'Previous Close', data: formatValue(data.previousClose) },
-        { label: '52W High', data: formatValue(data.high) },
-        { label: '52W Low', data: formatValue(data.low) },
-    ]
+        { label: '52W High', data: formatValue(data.fiftyTwoWeekHigh) },
+        { label: '52W Low', data: formatValue(data.fiftyTwoWeekLow) },
+    ];
+
 
     const about = [
         { label: 'Employees', data: data.employees || 'N/A' },
@@ -38,11 +40,11 @@ const About = ({ data }) => {
 
             {/* MARKET STATS */}
             <h1 className='text-[3vh] font-bold opacity-60 mb-1'>Market Stats</h1>
-            <div className='StockSetails flex flex-wrap justify-between mt-2 space-y-2 border-b border-white/20 pb-3'>
+            <div className='StockSetails flex flex-wrap justify-between px- mt-2 space-y-2 border-b border-white/20 pb-3'>
                 {marketStats.map((stock, i) => (
-                    <div key={i} className='flex flex-col items-center justify-center border border-white/20 rounded-[1.4vh] w-21 h-15 leading-5'>
-                        <h1 className='opacity-60 tracking-tighter text-[1.6vh] font-bold'>{stock.label}</h1>
-                        <p>₹ {stock.data}</p>
+                    <div key={i} className='flex flex-col items-cente justify-center borde border-white/20 rounded-[1.4vh] w-20 h-15 pl-1.5 leading-5'>
+                        <h1 className='opacity-60 tracking text-[1.6vh] '>{stock.label}</h1>
+                        <p className='font-bold'>{stock.data}</p>
                     </div>
                 ))}
             </div>

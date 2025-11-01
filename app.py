@@ -1,15 +1,18 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import finnhub
-import yfinance as yf
+import requests
+import traceback
 
 app = Flask(__name__)
 CORS(app)
 
-API = 'd415j31r01qo6qdf1ga0d415j31r01qo6qdf1gag'
-finnhub_client = finnhub.Client(api_key=API)
+FINNHUB_API = "d415j31r01qo6qdf1ga0d415j31r01qo6qdf1gag"
+TWELVE_API = "739d88f24c8d47a989fbfb20a1827636"
 
-# ✅ Home route (fixes 404 on root)
+finnhub_client = finnhub.Client(api_key=FINNHUB_API)
+
+
 @app.route('/')
 def home():
     return jsonify({
@@ -20,55 +23,63 @@ def home():
 
 @app.route('/api/stock', methods=['GET'])
 def stockData():
-    symbol = request.args.get('symbol', 'AAPL').upper()
+    symbol = request.args.get('symbol', '').upper()
+    print(f"\n📩 Request received for: {symbol}")
+
+    if not symbol:
+        return jsonify({"error": "Missing symbol parameter"}), 400
 
     try:
         # --- Finnhub Data ---
-        stockDetails = finnhub_client.quote(symbol)
         companyDetails = finnhub_client.company_profile2(symbol=symbol)
+        quote = finnhub_client.quote(symbol)
 
-        # --- Yahoo Finance Data ---
-        stock = yf.Ticker(symbol)
-        info = stock.info
-        history = stock.history(period='1d')
+        # --- Twelve Data (extra stats) ---
+        stats_url = f"https://api.twelvedata.com/statistics?symbol={symbol}&apikey={TWELVE_API}"
+        stats = requests.get(stats_url).json()
 
+        print(f"✅ Fetched Data for {symbol}")
+
+        # 🧩 Combine Data
         data = {
             "symbol": symbol,
-            "name": companyDetails.get("name", info.get("longName", "N/A")),
-            "price": stockDetails.get("c", info.get("currentPrice", "N/A")),
-            "open": stockDetails.get("o", info.get("open", "N/A")),
-            "high": stockDetails.get("h", info.get("dayHigh", "N/A")),
-            "low": stockDetails.get("l", info.get("dayLow", "N/A")),
-            "previousClose": stockDetails.get("pc", info.get("previousClose", "N/A")),
-            "volume": stockDetails.get("v", info.get("volume", "N/A")),
+            "name": companyDetails.get("name", "N/A"),
+            "exchange": companyDetails.get("exchange", "N/A"),
+            "currency": companyDetails.get("currency", "USD"),  # ✅ Add currency
+            "datetime": stats.get("datetime", "N/A"),  # ✅ Add datetime if available
 
-            # 📊 Market stats
-            "marketCap": info.get("marketCap", "N/A"),
-            "peRatio": info.get("trailingPE", "N/A"),
-            "dividendYield": info.get("dividendYield", "N/A"),
-            "fiftyTwoWeekHigh": info.get("fiftyTwoWeekHigh", "N/A"),
-            "fiftyTwoWeekLow": info.get("fiftyTwoWeekLow", "N/A"),
+            # --- Market Info ---
+            "price": quote.get("c", "N/A"),
+            "open": quote.get("o", "N/A"),
+            "high": quote.get("h", "N/A"),
+            "low": quote.get("l", "N/A"),
+            "previousClose": quote.get("pc", "N/A"),
+            "volume": quote.get("v", "N/A"),
 
-            # 🏢 Company details
-            "industry": companyDetails.get("finnhubIndustry", info.get("industry", "N/A")),
-            "sector": info.get("sector", "N/A"),
-            "employees": info.get("fullTimeEmployees", "N/A"),
-            "headquarters": f"{info.get('city', '')}, {info.get('country', '')}",
-            "website": info.get("website", "N/A"),
+            # --- Stats ---
+            "marketCap": stats.get("market_cap", "N/A"),
+            "peRatio": stats.get("pe_ratio", "N/A"),
+            "dividendYield": stats.get("dividend_yield", "N/A"),
+            "fiftyTwoWeekHigh": stats.get("52_week_high", quote.get("h", "N/A")),
+            "fiftyTwoWeekLow": stats.get("52_week_low", quote.get("l", "N/A")),
 
-            # 💬 Description & visuals
-            "about": companyDetails.get("description", info.get("longBusinessSummary", "N/A")),
-            "logo": companyDetails.get("logo", info.get("logo_url", None)),
+            # --- Company Info ---
+            "industry": companyDetails.get("finnhubIndustry", "N/A"),
+            "sector": companyDetails.get("sector", "N/A"),
+            "employees": companyDetails.get("employeeTotal", "N/A"),
+            "headquarters": f"{companyDetails.get('city', '')}, {companyDetails.get('country', '')}",
+            "website": companyDetails.get("weburl", "N/A"),
+            "logo": companyDetails.get("logo", None),
 
-            # 🔗 Source info
-            "exchange": companyDetails.get("exchange", info.get("exchange", "N/A")),
-            "source": "Finnhub + Yahoo Finance"
+            "source": "Finnhub + Twelve Data"
         }
 
         return jsonify(data)
 
     except Exception as e:
-        return jsonify({'Error': str(e)}), 500
+        print("❌ Error while fetching data:")
+        traceback.print_exc()
+        return jsonify({"error": str(e), "message": "Something went wrong"}), 500
 
 
 if __name__ == '__main__':

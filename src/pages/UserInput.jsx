@@ -31,7 +31,7 @@ const UserInput = ({setStockData}) => {
     const stockData = async (symbol) => {
         if (!symbol) return
         try {
-            const res = await axios.get(`https://smds.up.railway.app/api/stock?symbol=${symbol}`)
+            const res = await axios.get(`http://127.0.0.1:5000/api/stock?symbol=${symbol}`)
             setStockData(res.data)
             setSuggestions([])
         } catch (error) {
@@ -41,10 +41,9 @@ const UserInput = ({setStockData}) => {
 
     return (
         <div className='relative z-99 space-y-1'>
-            <h1 className='text-2xl font-bold leading-12 text-[#161616]/90'>SMDS.</h1>
 
             <div className='relative'>
-                <div className='relative z-50 backdrop-blur-[10vh] border border-[#161616]/60 rounded-2xl h-10 w-full pl-3 pr-1 text-[#161616] flex items-center space-x-2'>
+                <div className='relative z-50 backdrop-blur-[10vh] border border-blue-500/40 rounded-2xl h-10 w-full pl-3 pr-1 text-blue-500 flex items-center space-x-2'>
                     <input
                         ref={inputRef}
                         value={userInput}
@@ -54,7 +53,7 @@ const UserInput = ({setStockData}) => {
                         className='w-full h-full outline-0' />
                     <button
                         onClick={() => stockData(userInput.toUpperCase())}
-                        className='bg-[#161616]/90 cursor-pointer backdrop-blur-2xl rounded-[1.4vh] text-white w-20 p-1 active:bg-[#161616]/70 transition-all duration-75 ease-in-out'>Search</button>
+                        className='bg-blue-600 cursor-pointer backdrop-blur-2xl rounded-[1.4vh] border border-white/40 text-white w-20 p-1 active:bg-[#161616]/70 transition-all duration-75 ease-in-out'>Search</button>
                 </div>
 
                 {suggestions.length > 0 && (

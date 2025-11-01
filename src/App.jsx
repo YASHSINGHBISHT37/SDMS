@@ -7,7 +7,7 @@ import StockFetcher from './pages/StockFetcher'
 const App = () => {
   const [stockData, setStockData] = useState(null)
   return (
-    <div className='bg-[#161616] w-screen min-h-screen h-auto p-3 pt-0 select-none'>
+    <div className='bg-[#161616] w-screen min-h-screen h-auto p-3 pt-0 select-none flex flex-col justify-center items-center'>
       <div className='Background-Gradient absolute inset-0 z-1 overflow-hidden'>
         <div className='fixed top-0 left-0 bg-[#161616]/7 w-full h-screen'></div>
         <div className="absolute bg-white blur-2xl -left-15 rotate-18 -z-1 -top-17 w-[90vh] h-80"></div>
@@ -20,12 +20,15 @@ const App = () => {
         <div className="absolute bg-[#161616] blur-2xl -left-40 rotate-18 -z-10 top-110 w-[90vh] h-full"></div>
       </div>
 
-      <UserInput setStockData={setStockData} />
-      <ShowData data={stockData} />
-      <About data={stockData}/>
-      {/* <StockFetcher/> */}
+      <h1 className='fixed top-0 left-4 z-50 text-2xl font-bold leading-12 text-[#161616]/90'>SMDS.</h1>
 
-      <h1 className='relative z-50 mt-4 text-center opacity-60 text-[1.3vh] leading-4 w-full'>Made by <br /> Yash Singh Bisht . Shivam Sharma . Pratham Sharma</h1>
+
+        <UserInput setStockData={setStockData} />
+        <ShowData data={stockData} />
+        <About data={stockData} />
+        {/* <StockFetcher/> */}
+
+      <h1 className='fixed z-50 mt-4 bottom-6 text-center opacity-60 text-[1.3vh] leading-4 w-full'>Made by <br /> Yash Singh Bisht . Shivam Sharma . Pratham Sharma</h1>
     </div>
   )
 }
