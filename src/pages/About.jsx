@@ -33,7 +33,7 @@ const About = ({ data }) => {
 
     return (
         <div className='relative z-50 w-full h-auto mt-4 mb-14 border border-white/20 rounded-3xl p-3 pt-8 bg-[#161616]/30 backdrop-blur-2xl'>
-            <div className="Bar absolute left-1/2 top-4 -translate-x-1/2 bg-white/80 rounded-full w-16 h-1"></div>
+            <div className="Bar absolute left-1/2 top-4 -translate-x-1/2 bg-white/70 rounded-full w-16 h-1"></div>
 
             {/* market Stats */}
             <h1 className='text-[2.6vh] font-bold text-white mb-1'>Market Stats</h1>

@@ -42,10 +42,12 @@ const ShowData = ({ data }) => {
             <div className='flex flex-col'>
                 <h1 className='StockPrize text-6xl mt-2 font-bold'>$56.56 <span className='text-[2vh] font-light opacity-70'>USA</span></h1>
                 <p className='flex items-center text-green-600'>16.46 <div className='w-1 h-1 mx-1.5 bg-white/80 rounded-full '></div> 3.74%</p>
-                <p className='text-[1.6vh]'>Last update Oct 31, 3:59 PM EDT</p>
+                {/* <p className='text-[1.6vh] opacity-80'>Last update: Oct 31, 3:59 PM EDT</p> */}
+            <p className='text-[1.6vh] opacity-80'><span className='opacity-70'>Last Update:</span> Oct 31, 3:59 PM EDT</p>
+
             </div>
             {/* <p className='text-[1.6vh]'><span className='opacity-70 '>Source :</span> {data.source}</p> */}
-            <p className='text-[1.4vh]'><span className='opacity-70 '>Source :</span> Finnhub & Twelve Data</p>
+            {/* <p className='text-[1.4vh]'><span className='opacity-70 '>Source :</span> Finnhub & Twelve Data</p> */}
 
         </div>
     )

@@ -8,7 +8,7 @@ import Nav from './pages/Nav'
 const App = () => {
   const [stockData, setStockData] = useState(null)
   return (
-    <div className='bg-[#161616] w-screen min-h-screen h-auto p-3 select-none flex flex-col justify-center items-center pt-10'>
+    <div className='bg-[#161616] w-screen min-h-screen h-auto p-3 select-none flex flex-col justify-center items-center pt-13'>
       {/* <div className='Background-Gradient absolute inset-0 z-1 overflow-hidden'>
         <div className='fixed top-0 left-0 bg-[#161616]/7 w-full h-screen'></div>
         <div className="absolute bg-white blur-2xl -left-15 rotate-18 -z-1 -top-17 w-[90vh] h-80"></div>
