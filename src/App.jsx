@@ -22,7 +22,7 @@ const App = () => {
       </div> */}
 
       <div className='bg-[#161616] w-screen h-full absolute top-0 left-0 pt-12 p-3 flex justify-center items-center flex-col overflow-auto'>
-          <h1 className='text-whit text-blue-500 font-bold text-[32vh] leading-0 mt-65'>SM</h1>
+          <h1 className='text-whit text-blue-500 font-bold text-[32vh] leading-0 pt-65'>SM</h1>
           <h1 className='text-whit text-blue-500 font-bold text-[32vh] leading-'>DS</h1>
       </div>
 
