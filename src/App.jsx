@@ -21,12 +21,17 @@ const App = () => {
         <div className="absolute bg-[#161616] blur-2xl -left-40 rotate-18 -z-10 top-110 w-[90vh] h-full"></div>
       </div> */}
 
+      <div className='bg-[#161616] w-screen h-screen absolute top-0 left-0 pt-12 p-3 flex justify-center items-center flex-col overflow-auto'>
+          <h1 className='text-whit text-blue-500 font-bold text-[32vh] leading-0 mt-50'>SM</h1>
+          <h1 className='text-whit text-blue-500 font-bold text-[32vh] leading-'>DS</h1>
+      </div>
+
       <Nav />
       <UserInput setStockData={setStockData} />
       {/* <ShowData data={stockData} /> */}
-      <ShowData />
+      {/* <ShowData /> */}
       {/* <About data={stockData} /> */}
-      <About />
+      {/* <About /> */}
       {/* <StockFetcher/> */}
 
       <h1 className='fixed mt-4 bottom-3 text-center opacity-60 text-[1.3vh] leading-4 w-full'>Made by <br /> Yash Singh Bisht . Shivam Sharma . Pratham Sharma</h1>

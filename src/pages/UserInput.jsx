@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
+import { AnimatePresence, motion } from 'framer-motion'
 
 const UserInput = ({ setStockData }) => {
     const inputRef = useRef(null)
@@ -51,19 +52,35 @@ const UserInput = ({ setStockData }) => {
         return () => document.removeEventListener('mousedown', clickOutside)
     }, [])
 
+    const clearInput = () => {
+        setUserInput('')
+        setSuggestions([])
+        inputRef.current.focus()
+    }
+
     return (
         <div ref={wrapperRef} className='relative w-full z-99 space-y-1'>
 
             <div className='relative w-full'>
-                <div className='relative z-50 backdrop-blur-[1vh] bg-white/5 border border-blue-500/50 border-white/20 rounded-2xl h-10 w-full pl-2 pr-1 text-blue-500 text-white flex items-center space-x-1'>
-                    <img src="icons/search.png" className='w-6 h-6 opacity-50' />
-                    <input ref={inputRef} value={userInput} onChange={(e) => setUserInput(e.target.value)} type="text" placeholder='Search Stock...' className='w-80 h-full outline-0' />
-                    {/* <img src="icons/close.png" className='absolute top-1/2 right-14.5 -translate-y-1/2 w-5 h-5 opacity-90' /> */}
-                    <button
+                <AnimatePresence>
+                    <div className='relative z-50 overflow-auto backdrop-blur-[1vh] bg-white/5 border border-blue-500/50 border-white/20 rounded-2xl h-10 w-full pl-2 pr-1 text-blue-500 text-white flex items-center space-x-1'>
+                        <img src="icons/search.png" className='w-6 h-6 opacity-50' />
+                        <input ref={inputRef} value={userInput} onChange={(e) => setUserInput(e.target.value)} type="text" placeholder='Search Stock...' className='w-full h-full outline-0 pr-7' />
+                        {userInput && (
+                            <motion.img
+                                initial={{ opacity: 0, x: 30, rotate: 90 }}
+                                animate={{ opacity: 0.9, x: 30, rotate: 0 }}
+                                exit={{ opacity: 0, x: 30, rotate: 90 }}
+                                transition={{ duration: 0.25, ease: 'easeInOut' }}
+                                src="icons/close.png"
+                                className='absolute top-1/2 right-9.5 -translate-y-1/2 w-6 h-6 cursor-pointer' onClick={clearInput} />
+                        )}
+                        {/* <button
                         onClick={() => stockData(userInput.toUpperCase())}
                         className='bg-[#161616]/90 cursor-pointer backdrop-blur-2xl rounded-[1.4vh] border border-white/7 text-blue-500 w-20 p-1 active:bg-white/5 transition-all duration-200 ease-in-out'>Search
-                    </button>
-                </div>
+                    </button> */}
+                    </div>
+                </AnimatePresence>
 
                 {suggestions.length > 0 && (
                     <ul className='Suggestions bg-[#161616]/100 backdrop-blur-[.8vh] bg absolute w-full max-h-54 top-0 border border-white/30 rounded-2xl overflow-auto'>
@@ -84,9 +101,11 @@ const UserInput = ({ setStockData }) => {
 
             {/* <p className='text-center text-white/60 text-[1.4vh]'>Data Source: Finnhub & Twelve Data</p> */}
 
-            <p className='text-center text-white/60 text-[1.4vh]'>
+            {/* <p className='text-center text-white/60 text-[1.4vh]'>
                 Data Source: <span className='text-blue-400'>Finnhub</span> & <span className='text-blue-400'>Twelve Data</span>
-            </p>
+            </p> */}
+
+            {/* <p className='text-center text-white/60 text-[1.4vh]'> Search Stock... </p> */}
 
 
 
