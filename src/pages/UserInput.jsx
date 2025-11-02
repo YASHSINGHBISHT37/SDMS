@@ -43,11 +43,11 @@ const UserInput = ({ setStockData }) => {
         <div className='relative w-full z-99 space-y-1'>
 
             <div className='relative w-full'>
-                <div className='relative z-50 backdrop-blur-[1vh] bg-white/30 border border-blue-500/40 rounded-2xl h-10 w-full pl-3 pr-1 text-blue-500 flex items-center space-x-2'>
+                <div className='relative z-50 backdrop-blur-[1vh] bg-white/5 border border-blue-500/50 border-white/30 rounded-2xl h-10 w-full pl-3 pr-1 text-blue-500 text-white flex items-center space-x-2'>
                     <input ref={inputRef} value={userInput} onChange={(e) => setUserInput(e.target.value)} type="text" placeholder='Search Stock...' className='w-full h-full outline-0' />
                     <button
                         onClick={() => stockData(userInput.toUpperCase())}
-                        className='bg-[#161616]/90 cursor-pointer backdrop-blur-2xl rounded-[1.4vh] borde border-white/40 text-white w-20 p-1 active:bg-blue-500 transition-all duration-150 ease-in-out'>Search</button>
+                        className='bg-[#161616]/90 cursor-pointer backdrop-blur-2xl rounded-[1.4vh] borde border-white/40 text-white w-20 p-1 active:bg-blue-500 transition-all duration-200 ease-in-out'>Search</button>
                 </div>
 
                 {suggestions.length > 0 && (

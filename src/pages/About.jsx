@@ -63,7 +63,7 @@ const About = ({ data }) => {
                             <p className='text-[1.7vh] opacity-70'>{e.label}</p>
 
                             {e.label === 'Website' ?
-                                (<a href={e.value} target="_blank" rel="noopener noreferrer" className="text-[1.4vh] text-blue-400"> {e.value.replace("https://", "")}</a>) :
+                                (<a href={e.value} target="_blank" rel="noopener noreferrer" className="text-[1.4vh] text-blue-500"> {e.value.replace("https://", "")}</a>) :
                                 (<p className="text-[1.6vh] text-right">{e.value}</p>)}
                         </div>
                     ))}
