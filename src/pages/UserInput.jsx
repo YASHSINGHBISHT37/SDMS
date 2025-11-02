@@ -3,13 +3,14 @@ import axios from 'axios'
 
 const UserInput = ({ setStockData }) => {
     const inputRef = useRef(null)
+    const wrapperRef = useRef(null)
     const [userInput, setUserInput] = useState('')
     const [suggestions, setSuggestions] = useState([])
     const API = 'd415j31r01qo6qdf1ga0d415j31r01qo6qdf1gag'
 
 
     useEffect(() => {
-        if (!userInput.trim()) {
+        if (userInput.trim().length < 2) {
             setSuggestions([])
             return
         }
@@ -39,24 +40,38 @@ const UserInput = ({ setStockData }) => {
         }
     }
 
+    useEffect(() => {
+        const clickOutside = (e) => {
+            if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
+                setSuggestions([])
+            }
+        }
+
+        document.addEventListener('mousedown', clickOutside)
+        return () => document.removeEventListener('mousedown', clickOutside)
+    }, [])
+
     return (
-        <div className='relative w-full z-99 space-y-1'>
+        <div ref={wrapperRef} className='relative w-full z-99 space-y-1'>
 
             <div className='relative w-full'>
-                <div className='relative z-50 backdrop-blur-[1vh] bg-white/5 border border-blue-500/50 border-white/20 rounded-2xl h-10 w-full pl-3 pr-1 text-blue-500 text-white flex items-center space-x-2'>
-                    <input ref={inputRef} value={userInput} onChange={(e) => setUserInput(e.target.value)} type="text" placeholder='Search Stock...' className='w-full h-full outline-0' />
+                <div className='relative z-50 backdrop-blur-[1vh] bg-white/5 border border-blue-500/50 border-white/20 rounded-2xl h-10 w-full pl-2 pr-1 text-blue-500 text-white flex items-center space-x-1'>
+                    <img src="icons/search.png" className='w-6 h-6 opacity-50' />
+                    <input ref={inputRef} value={userInput} onChange={(e) => setUserInput(e.target.value)} type="text" placeholder='Search Stock...' className='w-80 h-full outline-0' />
+                    {/* <img src="icons/close.png" className='absolute top-1/2 right-14.5 -translate-y-1/2 w-5 h-5 opacity-90' /> */}
                     <button
                         onClick={() => stockData(userInput.toUpperCase())}
-                        className='bg-[#161616]/90 cursor-pointer backdrop-blur-2xl rounded-[1.4vh] border border-white/7 text-blue-500 w-20 p-1 active:bg-white/5 transition-all duration-200 ease-in-out'>Search</button>
+                        className='bg-[#161616]/90 cursor-pointer backdrop-blur-2xl rounded-[1.4vh] border border-white/7 text-blue-500 w-20 p-1 active:bg-white/5 transition-all duration-200 ease-in-out'>Search
+                    </button>
                 </div>
 
                 {suggestions.length > 0 && (
-                    <ul className='Suggestions bg-[#161616]/50 backdrop-blur-[.8vh] bg absolute w-full max-h-54 top-0 border border-white/30 rounded-2xl overflow-auto'>
+                    <ul className='Suggestions bg-[#161616]/100 backdrop-blur-[.8vh] bg absolute w-full max-h-54 top-0 border border-white/30 rounded-2xl overflow-auto'>
                         {suggestions.map((stock, i) => (
                             <li
                                 key={i}
                                 onClick={() => stockData(stock.symbol)}
-                                className={`text-white flex justify-between items-center p-1 px-3 cursor-pointer active:bg-[#161616]/20 hover:bg-[#161616]/10
+                                className={`text-white flex justify-between items-center p-1 px-3 cursor-pointer font-bold active:bg-[#161616]/20 hover:bg-[#161616]/10
                                 ${i === suggestions.length - 1 ? 'border-0' : 'border-b border-white/30'}
                                 ${i === 0 ? 'mt-9.5' : ''}`}>
                                 <p className="font-">{stock.symbol}</p>
@@ -67,7 +82,12 @@ const UserInput = ({ setStockData }) => {
                 )}
             </div>
 
-            <p className='text-center text-white/60 text-[1.4vh]'>Data Source: Finnhub & Twelve Data</p>
+            {/* <p className='text-center text-white/60 text-[1.4vh]'>Data Source: Finnhub & Twelve Data</p> */}
+
+            <p className='text-center text-white/60 text-[1.4vh]'>
+                Data Source: <span className='text-blue-400'>Finnhub</span> & <span className='text-blue-400'>Twelve Data</span>
+            </p>
+
 
 
         </div >
