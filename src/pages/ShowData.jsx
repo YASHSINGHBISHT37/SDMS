@@ -26,6 +26,8 @@ const ShowData = ({ data }) => {
                 </div>
                 <p className='text-[1.6vh]'><span className='opacity-70 '>Source :</span> {data.source}</p> */}
 
+           
+
             <div className='Stockname flex items-center space-x-5 w-full'>
                 <div className='StocImg rounded-full w-16 h-16 bg-white'>
                     {/* {data.logo ? (<img src={data.logo} alt={data.symbol} className='rounded-full w-full h-full object-cover' />) : (<div className='Img bg-white/70 rounded-full w-full h-full'></div>)} */}
@@ -43,7 +45,7 @@ const ShowData = ({ data }) => {
                 <h1 className='StockPrize text-6xl mt-2 font-bold'>$56.56 <span className='text-[2vh] font-light opacity-70'>USA</span></h1>
                 <p className='flex items-center text-green-600'>16.46 <div className='w-1 h-1 mx-1.5 bg-white/80 rounded-full '></div> 3.74%</p>
                 {/* <p className='text-[1.6vh] opacity-80'>Last update: Oct 31, 3:59 PM EDT</p> */}
-            <p className='text-[1.6vh] opacity-80'><span className='opacity-70'>Last Update:</span> Oct 31, 3:59 PM EDT</p>
+                <p className='text-[1.6vh] opacity-80'><span className='opacity-70'>Last Update:</span> Oct 31, 3:59 PM EDT</p>
 
             </div>
             {/* <p className='text-[1.6vh]'><span className='opacity-70 '>Source :</span> {data.source}</p> */}

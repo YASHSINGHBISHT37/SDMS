@@ -59,7 +59,7 @@ const UserInput = ({ setStockData }) => {
     }
 
     return (
-        <div ref={wrapperRef} className='relative w-full z-99 space-y-1'>
+        <div ref={wrapperRef} className='relative w-full z-99 space-y-1 px-3'>
 
             <div className='relative w-full'>
                 <AnimatePresence>

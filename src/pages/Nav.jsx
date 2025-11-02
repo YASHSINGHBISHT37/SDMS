@@ -38,7 +38,7 @@ const Nav = () => {
 
     useEffect(() => {
         const scroll = () => {
-            if (window.scrollY > 150) setStockbar(true)
+            if (window.scrollY > 200) setStockbar(true)
             else setStockbar(false)
         }
 
@@ -49,9 +49,9 @@ const Nav = () => {
 
     return (
         <div className="fixed top-0 z-999 w-full h-12">
-            <div className='relative  z-999 w-full h-full bg-gradient-to-b from-[#161616] to-[#161616] flex justify-between items-center px-3'>
+            <div className='relative  z-999 w-full h-full bg-gradient-to-b from-[#161616] via-[#161616]/80 borderb border-white/30 rounded-b-4xl to-[#161616]/0 backdrop-blur-[.3vh] flex justify-between items-center px-3'>
 
-                <div className={`Nav-bar w-full flex justify-between items-center text-white/90 transition-all duration-350 ease-in-out
+                <div className={`Nav-bar w-full flex justify-between items-center text-white/90 transition-all duration-400 ease-in-out
                 ${stockbar ? '-translate-y-full opacity-0' : 'translate-y-0 opacity-100'}`}>
                     <h1 className='cursor-pointer text-2xl font-bold'>SMDS</h1>
                     {/* <h1 className='cursor-pointer font-bold' onClick={() => setMenu(true)}>Menu</h1> */}
@@ -62,7 +62,7 @@ const Nav = () => {
                     </div>
                 </div>
 
-                <div className={`Stock-bar absolute left-0 top-0 w-full h-full flex justify-between items-center text-white px-3 transition-all duration-350 ease-in-out
+                <div className={`Stock-bar absolute left-0 top-0 w-full h-full flex justify-between items-center text-white px-3 transition-all duration-400 ease-in-out
                 ${stockbar ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}>
                     <div className='flex items-center space-x-1.5'>
                         <div className='border  rounded-full w-7 h-7'></div>

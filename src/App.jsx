@@ -4,6 +4,8 @@ import About from './pages/About'
 import UserInput from './pages/UserInput'
 import StockFetcher from './pages/StockFetcher'
 import Nav from './pages/Nav'
+import Marquee from './pages/Marquee'
+import Data from './pages/Data'
 
 const App = () => {
   const [stockData, setStockData] = useState(null)
@@ -22,16 +24,19 @@ const App = () => {
       </div> */}
 
       <div className='bg-[#161616] w-screen h-full absolute top-0 left-0 pt-12 p-3 flex justify-center items-center flex-col overflow-auto'>
-          <h1 className='text-whit text-blue-500 font-bold text-[32vh] leading-0 pt-65'>SM</h1>
-          <h1 className='text-whit text-blue-500 font-bold text-[32vh] leading-'>DS</h1>
+          <h1 className='text-blue-500 font-bold text-[32vh] leading-0 pt-65'>SM</h1>
+          <h1 className='text-blue-500 font-bold text-[32vh] leading-'>DS</h1>
       </div>
+
+      {/* <Data/> */}
 
       <Nav />
       <UserInput setStockData={setStockData} />
+      <Marquee/>
       {/* <ShowData data={stockData} /> */}
-      {/* <ShowData /> */}
+      <ShowData />
       {/* <About data={stockData} /> */}
-      {/* <About /> */}
+      <About />
       {/* <StockFetcher/> */}
 
       <h1 className='fixed mt-4 bottom-3 text-center opacity-60 text-[1.3vh] leading-4 w-full'>Made by <br /> Yash Singh Bisht . Shivam Sharma . Pratham Sharma</h1>

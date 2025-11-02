@@ -1,0 +1,135 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+
+const Data = ({ symbol = "AAPL" }) => {
+    const [stockData, setStockData] = useState(null);
+
+    useEffect(() => {
+        async function fetchStockData() {
+            try {
+                const stockDataAPI = "EH66amcigezyIpMlfy7FjM1JjMCD1D0YtQ5CTMC4"; // StockData.org
+                const finnhubAPI = "d43rh49r01qge0cv7f90d43rh49r01qge0cv7f9g"; // Finnhub
+
+                // Fetch quote + profile in parallel
+                const [quoteRes, finnhubRes, profileRes] = await Promise.all([
+                    axios.get(`https://api.stockdata.org/v1/data/quote?symbols=${symbol}&api_token=${stockDataAPI}`),
+                    axios.get(`https://finnhub.io/api/v1/stock/profile2?symbol=${symbol}&token=${finnhubAPI}`),
+                    axios.get(`https://api.stockdata.org/v1/entity/profile?symbols=${symbol}&api_token=${stockDataAPI}`)
+                ])
+
+                const stock = quoteRes.data.data[0];
+                const profile = finnhubRes.data;
+                const stockProfile = profileRes.data.data?.[0] || {};
+
+                // Profit and percentage change
+                const change = (stock.price - stock.previous_close_price).toFixed(2);
+                const percent = ((change / stock.previous_close_price) * 100).toFixed(2);
+
+                const data = {
+                    symbol: stock.ticker,
+                    name: stock.name,
+                    price: stock.price,
+                    open: stock.day_open,
+                    prevClose: stock.previous_close_price,
+                    profit: {
+                        value: change,
+                        percent: `${percent}%`,
+                    },
+                    volume: stock.volume || "N/A",
+                    marketCap: stock.market_cap || profile.marketCapitalization || "N/A",
+                    dayRange: `${stock.day_low} - ${stock.day_high}`,
+                    week52Range: `${stock["52_week_low"]} - ${stock["52_week_high"]}`,
+                    lastUpdate: new Date(stock.last_trade_time).toLocaleString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        hour: "numeric",
+                        minute: "2-digit",
+                        timeZone: "America/New_York",
+                        timeZoneName: "short",
+                    }),
+                    dataSource: "StockData.org + Finnhub.io",
+                    companyDescription:
+                        profile.description ||
+                        stockProfile.description ||
+                        "No description available",
+                    about: {
+                        ceo: profile.ceo || stockProfile.ceo || "N/A",
+                        employees: profile.employees || stockProfile.employees || "N/A",
+                        address: profile.address || stockProfile.address || "N/A",
+                        phone: profile.phone || stockProfile.phone || "N/A",
+                        website: profile.weburl || stockProfile.website || "N/A",
+                        instrumentType:
+                            stockProfile.type || profile.shareType || "Equity",
+                        sector: profile.finnhubIndustry || stockProfile.sector || "N/A",
+                        industry: profile.finnhubIndustry || stockProfile.industry || "N/A",
+                        country: profile.country || stockProfile.country || "N/A",
+                        micCode: stock.mic_code || stockProfile.mic_code || "N/A",
+                    },
+                    image:
+                        profile.logo ||
+                        stockProfile.logo ||
+                        `https://logo.clearbit.com/${new URL(profile.weburl || "https://example.com").hostname
+                        }`,
+                };
+
+                setStockData(data);
+            } catch (error) {
+                console.error("Error fetching stock data:", error);
+            }
+        }
+
+        fetchStockData();
+    }, [symbol]);
+
+    if (!stockData) return <div>Loading...</div>;
+
+    return (
+        <div className="p-5 text-white z-999 bg-amber-950">
+            <h1 className="text-2xl font-bold">
+                {stockData.name} ({stockData.symbol})
+            </h1>
+            <p>Price: ${stockData.price}</p>
+            <p>
+                Profit: {stockData.profit.value} ({stockData.profit.percent})
+            </p>
+            <p>Open: {stockData.open}</p>
+            <p>Prev Close: {stockData.prevClose}</p>
+            <p>Market Cap: {stockData.marketCap}</p>
+            <p>Day Range: {stockData.dayRange}</p>
+            <p>52-Week Range: {stockData.week52Range}</p>
+            <p>Last Update: {stockData.lastUpdate}</p>
+
+            <h2 className="mt-4 font-semibold text-lg">About</h2>
+            <p>CEO: {stockData.about.ceo}</p>
+            <p>Employees: {stockData.about.employees}</p>
+            <p>Address: {stockData.about.address}</p>
+            <p>Phone: {stockData.about.phone}</p>
+            <p>
+                Website:{" "}
+                <a href={stockData.about.website} className="text-blue-400 underline">
+                    {stockData.about.website}
+                </a>
+            </p>
+            <p>Instrument Type: {stockData.about.instrumentType}</p>
+            <p>Sector: {stockData.about.sector}</p>
+            <p>Industry: {stockData.about.industry}</p>
+            <p>Country: {stockData.about.country}</p>
+            <p>MIC Code: {stockData.about.micCode}</p>
+
+            {stockData.image && (
+                <img
+                    src={stockData.image}
+                    alt={stockData.name}
+                    width={100}
+                    className="mt-2"
+                />
+            )}
+
+            <p className="mt-4 text-sm text-gray-400">
+                {stockData.companyDescription}
+            </p>
+        </div>
+    );
+};
+
+export default Data;
