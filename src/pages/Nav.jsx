@@ -38,7 +38,7 @@ const Nav = () => {
 
     useEffect(() => {
         const scroll = () => {
-            if (window.scrollY > 130) setStockbar(true)
+            if (window.scrollY > 150) setStockbar(true)
             else setStockbar(false)
         }
 

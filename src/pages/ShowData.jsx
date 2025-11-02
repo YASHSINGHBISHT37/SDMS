@@ -27,7 +27,7 @@ const ShowData = ({ data }) => {
                 <p className='text-[1.6vh]'><span className='opacity-70 '>Source :</span> {data.source}</p> */}
 
             <div className='Stockname flex items-center space-x-5 w-full'>
-                <div className='StocImg rounded-full w-16 h-16'>
+                <div className='StocImg rounded-full w-16 h-16 bg-white'>
                     {/* {data.logo ? (<img src={data.logo} alt={data.symbol} className='rounded-full w-full h-full object-cover' />) : (<div className='Img bg-white/70 rounded-full w-full h-full'></div>)} */}
                 </div>
 
