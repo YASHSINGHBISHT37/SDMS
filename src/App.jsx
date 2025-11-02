@@ -27,7 +27,6 @@ const App = () => {
       <ShowData />
       {/* <About data={stockData} /> */}
       <About />
-      <About />
       {/* <StockFetcher/> */}
 
       <h1 className='fixed mt-4 bottom-3 text-center opacity-60 text-[1.3vh] leading-4 w-full'>Made by <br /> Yash Singh Bisht . Shivam Sharma . Pratham Sharma</h1>
