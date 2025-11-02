@@ -12,7 +12,6 @@ TWELVE_API = "739d88f24c8d47a989fbfb20a1827636"
 
 finnhub_client = finnhub.Client(api_key=FINNHUB_API)
 
-
 @app.route('/')
 def home():
     return jsonify({
