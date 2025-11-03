@@ -8,7 +8,6 @@ const Marquee = () => {
         { name: "Solana", symbol: "SOL", value: "$220", change: "+5%", img: "icons/solana.png" },
         { name: "Cardano", symbol: "ADA", value: "$0.42", change: "-2%", img: "icons/cardano.png" },
     ]
-
     const loopStocks = [...stocks, ...stocks]
 
     return (
@@ -29,9 +28,7 @@ const Marquee = () => {
                     {loopStocks.map((item, i) => (
                         <div
                             key={i}
-                            className='rounded-[3vh] border border-white/20 bg-white/2 py-1.5 px-2 pr-3 w-60 min-w-[240px] flex flex-shrink-0 items-center space-x-2.5 bg-[#161616]'
-                        >
-                            {/* <img src={item.img} className='h-10' alt={item.name} /> */}
+                            className='rounded-[3vh] border border-white/20 bg-white/2 py-1.5 px-2 pr-3 w-60 min-w-[240px] flex flex-shrink-0 items-center space-x-2.5 bg-[#161616]'>
                             <div className='w-13 h-10 border border-white/20 rounded-full'></div>
                             <div className='flex justify-between w-full'>
                                 <div className='flex flex-col -space-y-1.5'>

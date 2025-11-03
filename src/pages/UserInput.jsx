@@ -1,14 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 import { AnimatePresence, motion } from 'framer-motion'
+import { useStockData } from './Data'
 
-const UserInput = ({ setStockData }) => {
+const UserInput = () => {
+    const { stockData } = useStockData()
+    if (!stockData)
+        return (
+            <p className="fixed top-0 z-[999] w-full text-center text-white/60 py-2">
+                Loading stock data...
+            </p>
+        )
+
     const inputRef = useRef(null)
     const wrapperRef = useRef(null)
     const [userInput, setUserInput] = useState('')
     const [suggestions, setSuggestions] = useState([])
     const API = 'd415j31r01qo6qdf1ga0d415j31r01qo6qdf1gag'
-
 
     useEffect(() => {
         if (userInput.trim().length < 2) {
@@ -30,16 +38,15 @@ const UserInput = ({ setStockData }) => {
         return () => clearTimeout(debounce)
     }, [userInput])
 
-    const stockData = async (symbol) => {
-        if (!symbol) return
-        try {
-            const res = await axios.get(`http://127.0.0.1:5000/api/stock?symbol=${symbol}`)
-            setStockData(res.data)
-            setSuggestions([])
-        } catch (error) {
-            console.error(error)
-        }
-    }
+    // const stockData = async (symbol) => {
+    //     if (!symbol) return
+    //     try {
+    //         const res = await axios.get(`http://127.0.0.1:5000/api/stock?symbol=${symbol}`)
+    //         setSuggestions([])
+    //     } catch (error) {
+    //         console.error(error)
+    //     }
+    // }
 
     useEffect(() => {
         const clickOutside = (e) => {
@@ -59,7 +66,7 @@ const UserInput = ({ setStockData }) => {
     }
 
     return (
-        <div ref={wrapperRef} className='relative w-full z-99 space-y-1 px-3'>
+        <div ref={wrapperRef} className='relative w-full z-99 space-y-1'>
 
             <div className='relative w-full'>
                 <AnimatePresence>
@@ -68,22 +75,22 @@ const UserInput = ({ setStockData }) => {
                         <input ref={inputRef} value={userInput} onChange={(e) => setUserInput(e.target.value)} type="text" placeholder='Search Stock...' className='w-full h-full outline-0 pr-7' />
                         {userInput && (
                             <motion.img
-                                initial={{ opacity: 0, x: 30, rotate: 90 }}
-                                animate={{ opacity: 0.9, x: 30, rotate: 0 }}
-                                exit={{ opacity: 0, x: 30, rotate: 90 }}
+                                initial={{ opacity: 0, x: 0, rotate: 180 }}
+                                animate={{ opacity: 0.9, x: -23, rotate: 0 }}
+                                exit={{ opacity: 0, x: 0, rotate: 180 }}
                                 transition={{ duration: 0.25, ease: 'easeInOut' }}
                                 src="icons/close.png"
                                 className='absolute top-1/2 right-9.5 -translate-y-1/2 w-6 h-6 cursor-pointer' onClick={clearInput} />
                         )}
-                        {/* <button
-                        onClick={() => stockData(userInput.toUpperCase())}
-                        className='bg-[#161616]/90 cursor-pointer backdrop-blur-2xl rounded-[1.4vh] border border-white/7 text-blue-500 w-20 p-1 active:bg-white/5 transition-all duration-200 ease-in-out'>Search
-                    </button> */}
+                        <button
+                            onClick={() => stockData(userInput.toUpperCase())}
+                            className='bg-[#161616]/90 cursor-pointer backdrop-blur-2xl rounded-[1.4vh] border border-white/7 text-blue-500 w-20 p-1 active:bg-white/5 transition-all duration-200 ease-in-out'>Search
+                        </button>
                     </div>
                 </AnimatePresence>
 
                 {suggestions.length > 0 && (
-                    <ul className='Suggestions bg-[#161616]/100 backdrop-blur-[.8vh] bg absolute w-full max-h-54 top-0 border border-white/30 rounded-2xl overflow-auto'>
+                    <ul className='Suggestions bg-[#161616] backdrop-blur-[.8vh] bg absolute w-full max-h-54 top-0 border border-white/30 rounded-2xl overflow-auto'>
                         {suggestions.map((stock, i) => (
                             <li
                                 key={i}
@@ -99,13 +106,13 @@ const UserInput = ({ setStockData }) => {
                 )}
             </div>
 
-            {/* <p className='text-center text-white/60 text-[1.4vh]'>Data Source: Finnhub & Twelve Data</p> */}
-
-            {/* <p className='text-center text-white/60 text-[1.4vh]'>
-                Data Source: <span className='text-blue-400'>Finnhub</span> & <span className='text-blue-400'>Twelve Data</span>
-            </p> */}
-
             {/* <p className='text-center text-white/60 text-[1.4vh]'> Search Stock... </p> */}
+
+            <p className="text-center text-white/50 text-[1.4vh] tracking-wide">
+                Data Source:&nbsp;
+                <span className="text-blue-400 hover:underline cursor-pointer">StockData.org</span>&nbsp;|&nbsp;
+                <span className="text-blue-400 hover:underline cursor-pointer">Finnhub.io</span>
+            </p>
 
 
 
