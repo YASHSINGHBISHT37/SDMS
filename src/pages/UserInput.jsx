@@ -5,12 +5,7 @@ import { useStockData } from './Data'
 
 const UserInput = () => {
     const { stockData } = useStockData()
-    if (!stockData)
-        return (
-            <p className="fixed top-0 z-[999] w-full text-center text-white/60 py-2">
-                Loading stock data...
-            </p>
-        )
+    if (!stockData) return
 
     const inputRef = useRef(null)
     const wrapperRef = useRef(null)
@@ -66,7 +61,7 @@ const UserInput = () => {
     }
 
     return (
-        <div ref={wrapperRef} className='relative w-full z-99 space-y-1'>
+        <div ref={wrapperRef} className='relative w-full z-99 space-y-1 px-3'>
 
             <div className='relative w-full'>
                 <AnimatePresence>
@@ -76,15 +71,15 @@ const UserInput = () => {
                         {userInput && (
                             <motion.img
                                 initial={{ opacity: 0, x: 0, rotate: 180 }}
-                                animate={{ opacity: 0.9, x: -23, rotate: 0 }}
+                                animate={{ opacity: 0.8, x: -25, rotate: 0 }}
                                 exit={{ opacity: 0, x: 0, rotate: 180 }}
                                 transition={{ duration: 0.25, ease: 'easeInOut' }}
                                 src="icons/close.png"
-                                className='absolute top-1/2 right-9.5 -translate-y-1/2 w-6 h-6 cursor-pointer' onClick={clearInput} />
+                                className='absolute top-1/2 right-9.5 -translate-y-1/2 w-5.5 h-5.5 cursor-pointer' onClick={clearInput} />
                         )}
                         <button
                             onClick={() => stockData(userInput.toUpperCase())}
-                            className='bg-[#161616]/90 cursor-pointer backdrop-blur-2xl rounded-[1.4vh] border border-white/7 text-blue-500 w-20 p-1 active:bg-white/5 transition-all duration-200 ease-in-out'>Search
+                            className='bg-[#161616]/90 cursor-pointer backdrop-blur-2xl rounded-[1.4vh] border border-white/14 text-blue-500 w-20 p-1 active:bg-white/5 transition-all duration-200 ease-in-out'>Search
                         </button>
                     </div>
                 </AnimatePresence>
@@ -106,7 +101,7 @@ const UserInput = () => {
                 )}
             </div>
 
-            {/* <p className='text-center text-white/60 text-[1.4vh]'> Search Stock... </p> */}
+            <p className='text-center text-white/60 text-[1.4vh]'> Search Stock... </p>
 
             <p className="text-center text-white/50 text-[1.4vh] tracking-wide">
                 Data Source:&nbsp;

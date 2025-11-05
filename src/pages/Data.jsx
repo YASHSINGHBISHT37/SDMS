@@ -6,12 +6,12 @@ const StockContext = createContext()
 
 export const Data = ({ children }) => {
   const [stockData, setStockData] = useState(null)
-  const symbol = 'TSLA'
+  const symbol = 'AAPL'
 
   useEffect(() => {
     async function fetchStockData() {
       try {
-        const stockdataAPI = "TZFdaDhqmcSvhoGXG04Js0QdVlN2Zt06n8MxBrCL";
+        const stockdataAPI = "EH66amcigezyIpMlfy7FjM1JjMCD1D0YtQ5CTMC4";
         const finnhubAPI = "d43rh49r01qge0cv7f90d43rh49r01qge0cv7f9g";
 
         const [quoteRes, profileRes] = await Promise.all([

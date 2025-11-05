@@ -8,11 +8,11 @@ const Marquee = () => {
         { name: "Solana", symbol: "SOL", value: "$220", change: "+5%", img: "icons/solana.png" },
         { name: "Cardano", symbol: "ADA", value: "$0.42", change: "-2%", img: "icons/cardano.png" },
     ]
-    const loopStocks = [...stocks, ...stocks]
+    const loopStocks = [,...stocks, ...stocks,...stocks, ...stocks]
 
     return (
         <div className='w-full h-full'>
-            <div className='Top-Stock mt-4 relative overflow-hidden'>
+            <div className='Top-Stock mt-4 relative overflow-hidden h-auto flex justify-center'>
 
                 {/* Left fade */}
                 <div className='absolute left-0 top-0 h-full w-20 bg-gradient-to-r from-[#161616] to-transparent z-20 pointer-events-none' />
@@ -22,13 +22,13 @@ const Marquee = () => {
 
                 <motion.div
                     animate={{ x: ['0%', '-50%'] }}
-                    transition={{ repeat: Infinity, duration: 20, ease: 'linear' }}
+                    transition={{ repeat: Infinity, duration: 24, ease: 'linear' }}
                     className='cont flex items-center space-x-3 w-max'
                 >
                     {loopStocks.map((item, i) => (
                         <div
                             key={i}
-                            className='rounded-[3vh] border border-white/20 bg-white/2 py-1.5 px-2 pr-3 w-60 min-w-[240px] flex flex-shrink-0 items-center space-x-2.5 bg-[#161616]'>
+                            className='rounded-[3vh] backdrop-blur-[0.6vh] border border-white/20 bg-white/2 py-1.5 px-2 pr-3 w-60 min-w-[240px] flex flex-shrink-0 items-center space-x-2.5 bg-[#161616]'>
                             <div className='w-13 h-10 border border-white/20 rounded-full'></div>
                             <div className='flex justify-between w-full'>
                                 <div className='flex flex-col -space-y-1.5'>
