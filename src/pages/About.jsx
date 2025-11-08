@@ -15,7 +15,6 @@ const About = () => {
         { label: 'Market Cap', data: stockData.marketCap || 'N/A' },
         { label: 'Day Range', data: stockData.dayRange || 'N/A' },
         { label: '52 Week Range', data: stockData.week52Range || 'N/A' },
-        // { label: 'Change %', data: stockData.profit?.percent || 'N/A' },
     ]
 
     //Description

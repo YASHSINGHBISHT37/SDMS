@@ -17,8 +17,8 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
                     animate={{ y: 0 }}
                     exit={{ y: 420 }}
                     transition={{ duration: 0.6, ease: 'easeInOut' }}
-                    className="w-full h-[45vh] fixed left-0 bottom-0">
-                    <div className="bg-[#161616]/40 backdrop-blur-[1vh] w-full h-full border-t border-white/30 rounded-t-[4vh] p-5">
+                    className="w-full h-[45vh] fixed left-0 bottom-0 z-99999999 bg-amber-400">
+                    <div className="bg-[#161616]/40 backdrop-blur-[1vh] w-full h-full border-t border-white/30  rounded-t-[4vh] p-5">
                         <div className='flex justify-between items-center opacity-70'>
                             <h1 className="font-bold text-2xl">Links</h1>
                             <img onClick={() => setMenuOpen(false)} src="icons/close.png" className='w-6 h-6 cursor-pointer' />

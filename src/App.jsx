@@ -18,9 +18,9 @@ const App = () => {
           <h1 className='text-blue-500 font-bold text-[32vh] leading-'>DS</h1>
         </div>
 
-        <Data />
-        {/* <Nav /> */}
-        {/* <UserInput /> */}
+        {/* <Data /> */}
+        <Nav />
+        <UserInput />
         <Marquee />
         <ShowData />
         <About />
