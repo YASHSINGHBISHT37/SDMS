@@ -12,7 +12,7 @@ const ShowData = () => {
             <div className='relative h-auto flex flex-col justify-between z-50 mt-4 border border-white/20 rounded-3xl p-3 pl-4 pt-5 overflow-hidden bg-[#161616]/30 backdrop-blur-2xl'>
 
                 <div className='Stockname flex items-center space-x-5 w-full bg-amber-00'>
-                    <div className='StocImg rounded-full w-26 h-19 border-white/10 border'>
+                    <div className='StocImg rounded-full w-19 h-19 border-white/10 border'>
                         {stockData.image ? (<img src={stockData.image} alt={stockData.symbol} className='rounded-full w-19 h-19' />) : (<div className='Img bg-white/70 rounded-full w-19 h-19'></div>)}
                     </div>
 
