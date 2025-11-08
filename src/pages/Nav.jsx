@@ -63,7 +63,7 @@ const Nav = () => {
   const profitPositive = parseFloat(stockData.profit.value) >= 0
 
   return (
-    <div className="fixed top-0 z-9999999 w-full h-full">
+    <div className="fixed top-0 z-9999999 w-full h-full pointer-events-none">
       <div className="">
 
         {/* Nav */}

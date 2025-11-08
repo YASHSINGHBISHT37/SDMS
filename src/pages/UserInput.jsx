@@ -55,7 +55,7 @@ const UserInput = () => {
 
   return (
     <div ref={wrapperRef} className="relative w-full z-999999 space-y-1 px-3">
-      <div className="relative w-full">
+      <div className="relative w-full pointer-events-auto">
         <AnimatePresence>
           <div className="relative z-50 overflow-auto backdrop-blur-[1vh] bg-white/5 border border-blue-500/50 border-white/20 rounded-full h-10 w-full pl-2 pr-0.5 text-blue-500 text-white flex items-center space-x-1">
             <img src="icons/search.png" className="w-6 h-6 opacity-50" />
