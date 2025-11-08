@@ -5,7 +5,7 @@ const StockContext = createContext();
 
 export const Data = ({ children }) => {
   const [stockData, setStockData] = useState(null);
-  const [symbol, setSymbol] = useState("NVDA"); // default symbol
+  const [symbol, setSymbol] = useState("META"); // default symbol
   const [loading, setLoading] = useState(true);
   const FINNHUB_API = "d47jlg1r01qkdqhr1540d47jlg1r01qkdqhr154g";
 

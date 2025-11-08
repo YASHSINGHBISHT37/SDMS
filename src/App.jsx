@@ -19,8 +19,8 @@ const App = () => {
         </div>
 
         {/* <Data /> */}
-        <Nav />
-        <UserInput />
+        <Nav className='pointer-events-none' />
+        <UserInput  className='pointer-events-auto'/>
         <Marquee />
         <ShowData />
         <About />
