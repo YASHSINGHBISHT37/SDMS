@@ -14,8 +14,8 @@ const About = () => {
         { label: 'Volume', data: stockData.volume || 'N/A' },
         { label: 'Market Cap', data: stockData.marketCap || 'N/A' },
         { label: 'Day Range', data: stockData.dayRange || 'N/A' },
-        // { label: '52 Week Range', data: stockData.week52Range || 'N/A' },
-        { label: 'Change %', data: stockData.profit?.percent || 'N/A' },
+        { label: '52 Week Range', data: stockData.week52Range || 'N/A' },
+        // { label: 'Change %', data: stockData.profit?.percent || 'N/A' },
     ]
 
     //Description
@@ -31,10 +31,11 @@ const About = () => {
         { label: 'Website', value: stockData.about?.website || 'N/A' },
         { label: 'Instrument Type', value: stockData.about?.instrumentType || 'N/A' },
         { label: 'Sector', value: stockData.about?.sector || 'N/A' },
-        { label: 'Industry', value: stockData.about?.industry || 'N/A' },
+        { label: 'Industry', value: stockData.description || 'N/A' },
         { label: 'Country', value: stockData.about?.country || 'N/A' },
         { label: 'MIC Code', value: stockData.about?.micCode || 'N/A' },
-    ]
+    ];
+
 
     return (
         <div className='px-3 w-full'>

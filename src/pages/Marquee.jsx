@@ -1,14 +1,45 @@
-import React from 'react'
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useEffect, useState } from 'react'
+import { motion } from "framer-motion"
+import axios from 'axios'
 
 const Marquee = () => {
-    const stocks = [
-        { name: "Bitcoin", symbol: "BTC", value: "$100000", change: "+1000%", img: "icons/bitcoin.png" },
-        { name: "Ethereum", symbol: "ETH", value: "$3800", change: "+12%", img: "icons/ethereum.png" },
-        { name: "Solana", symbol: "SOL", value: "$220", change: "+5%", img: "icons/solana.png" },
-        { name: "Cardano", symbol: "ADA", value: "$0.42", change: "-2%", img: "icons/cardano.png" },
-    ]
-    const loopStocks = [,...stocks, ...stocks,...stocks, ...stocks]
+    const FINNHUB_API = "d47jlg1r01qkdqhr1540d47jlg1r01qkdqhr154g"
+    const symbols = ["AAPL", "TSLA", "GOOGL", "AMZN", "NVDA", "META", "NFLX", "MSFT"]
+    const [stocks, setStocks] = useState([])
+
+    useEffect(() => {
+        const fetchStockData = async () => {
+            try {
+                const results = await Promise.all(
+                    symbols.map(async (symbol) => {
+                        const [quoteRes, profileRes] = await Promise.all([
+                            axios.get(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${FINNHUB_API}`),
+                            axios.get(`https://finnhub.io/api/v1/stock/profile2?symbol=${symbol}&token=${FINNHUB_API}`)
+                        ])
+
+                        const quote = quoteRes.data
+                        const profile = profileRes.data
+
+                        return {
+                            symbol,
+                            name: profile.name || symbol,
+                            logo: profile.logo || "/placeholder-logo.png", // ✅ show logo
+                            price: quote.c?.toFixed(2) || "N/A",
+                            change: (quote.d || 0).toFixed(2),
+                            percent: (quote.dp || 0).toFixed(2),
+                        }
+                    })
+                )
+                setStocks(results)
+            } catch (err) {
+                console.error("Error fetching stock data:", err)
+            }
+        }
+        fetchStockData()
+    }, [])
+
+    // ✅ Remove leading comma
+    const loopStocks = [...stocks, ...stocks]
 
     return (
         <div className='w-full h-full'>
@@ -28,17 +59,19 @@ const Marquee = () => {
                     {loopStocks.map((item, i) => (
                         <div
                             key={i}
-                            className='rounded-[3vh] backdrop-blur-[0.6vh] border border-white/20 bg-white/2 py-1.5 px-2 pr-3 w-60 min-w-[240px] flex flex-shrink-0 items-center space-x-2.5 bg-[#161616]'>
-                            <div className='w-13 h-10 border border-white/20 rounded-full'></div>
-                            <div className='flex justify-between w-full'>
+                            className='rounded-[3vh] backdrop-blur-[0.6vh] border border-white/20 bg-white/7 py-1.5 px-2 pr-3 w-auto flex flex-shrink-0 items-center space-x-2.5 bg-[#161616'>
+                            {/* ✅ Show company logo */}
+                            <img src={item.logo} alt={item.symbol} className='w-10 h-10 rounded-full border border-white/30 object-contain' />
+
+                            <div className='flex justify-between w-full space-x-6'>
                                 <div className='flex flex-col -space-y-1.5'>
                                     <h1 className='text-[2vh]'>{item.name}</h1>
                                     <span className='uppercase opacity-70 text-[1.6vh]'>({item.symbol})</span>
                                 </div>
                                 <div className='-space-y-1.5 flex flex-col items-end'>
-                                    <p className='opacity-90'>{item.value}</p>
+                                    <p className='opacity-90'>${item.price}</p>
                                     <p className={`${item.change.startsWith('-') ? 'text-red-500' : 'text-green-500'} opacity-80`}>
-                                        {item.change}
+                                        {item.percent}%
                                     </p>
                                 </div>
                             </div>

@@ -1,82 +1,72 @@
-// src/pages/Data.jsx
-import React, { createContext, useContext, useEffect, useState } from "react"
-import axios from "axios"
+import React, { createContext, useContext, useEffect, useState } from "react";
+import axios from "axios";
 
-const StockContext = createContext()
+const StockContext = createContext();
 
 export const Data = ({ children }) => {
-  const [stockData, setStockData] = useState(null)
-  const symbol = 'AAPL'
+  const [stockData, setStockData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const symbol = "NVDA";
+  const FINNHUB_API = "d47jlg1r01qkdqhr1540d47jlg1r01qkdqhr154g"; // Replace with your Finnhub key
 
   useEffect(() => {
-    async function fetchStockData() {
+    const fetchStockData = async () => {
       try {
-        const stockdataAPI = "EH66amcigezyIpMlfy7FjM1JjMCD1D0YtQ5CTMC4";
-        const finnhubAPI = "d47f8fpr01qh8nncds1gd47f8fpr01qh8nncds20";
+        setLoading(true);
 
         const [quoteRes, profileRes] = await Promise.all([
-          axios.get(`https://api.stockdata.org/v1/data/quote?symbols=${symbol}&api_token=${stockdataAPI}`),
-          axios.get(`https://finnhub.io/api/v1/stock/profile2?symbol=${symbol}&token=${finnhubAPI}`),
+          axios.get(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${FINNHUB_API}`),
+          axios.get(`https://finnhub.io/api/v1/stock/profile2?symbol=${symbol}&token=${FINNHUB_API}`)
         ])
 
-        const stock = quoteRes.data.data?.[0]
+        const quote = quoteRes.data;
         const profile = profileRes.data;
-        if (!stock) throw new Error("Stock not found");
 
-        const change = (stock.price - stock.previous_close_price).toFixed(2);
-        const percent = ((change / stock.previous_close_price) * 100).toFixed(2);
+        const change = (quote.c - quote.pc).toFixed(2);
+        const percent = ((change / quote.pc) * 100).toFixed(2);
 
-        const data = {
-          symbol: stock.ticker,
-          name: stock.name,
-          price: stock.price,
-          open: stock.day_open,
-          prevClose: stock.previous_close_price,
-          profit: {
-            value: change > 0 ? `+${change}` : change,
-            percent: `${percent}%`,
-          },
-          volume: stock.volume || "N/A",
-          marketCap: stock.market_cap || profile.marketCapitalization || "N/A",
-          dayRange: `${stock.day_low || "N/A"} - ${stock.day_high || "N/A"}`,
-          week52Range: `${stock["52_week_low"] || "N/A"} - ${stock["52_week_high"] || "N/A"}`,
-          lastUpdate: new Date(stock.last_trade_time).toLocaleString("en-US", {
-            month: "short",
-            day: "numeric",
-            hour: "numeric",
-            minute: "2-digit",
-            timeZone: "America/New_York",
-            timeZoneName: "short",
-          }),
-          description: profile.description || "No description available.",
-          dataSource: "StockData.org + Finnhub.io",
+        // Convert Unix timestamp to readable format
+        const lastUpdate = quote.t ? new Date(quote.t * 1000).toLocaleString() : "N/A";
+
+        setStockData({
+          symbol,
+          name: profile.name || symbol,
+          price: quote.c || "N/A",
+          open: quote.o || "N/A",
+          prevClose: quote.pc || "N/A",
+          mic: profile.exchange || "N/A",
+          high: quote.h || "N/A",
+          low: quote.l || "N/A",
+          dayRange: `${quote.l || "N/A"} - ${quote.h || "N/A"}`,
+          week52Range: `${profile["52WeekHigh"] || "N/A"} - ${profile["52WeekLow"] || "N/A"}`,
+          profit: { value: change > 0 ? `+${change}` : change, percent: `${percent}%` },
+          volume: quote.v || "N/A",
+          marketCap: profile.marketCapitalization || "N/A",
+          description: profile.finnhubIndustry || "No description available",
+          lastUpdate,
+          image: profile.logo || null,
           about: {
             ceo: profile.ceo || "N/A",
-            employees: profile.employees || "N/A",
-            address:
-              profile.address ||
-              `${profile.city || ""}, ${profile.state || ""}, ${profile.country || ""}`.trim() ||
-              "N/A",
+            employees: profile.employeeTotal || "N/A",
+            address: profile.address || "N/A",
             phone: profile.phone || "N/A",
-            website: profile.weburl || "N/A",
-            instrumentType: "Equity",
-            sector: profile.finnhubIndustry || "N/A",
+            website: profile.weburl || "#",
             industry: profile.finnhubIndustry || "N/A",
+            sector: profile.sector || "N/A",     
             country: profile.country || "N/A",
-            micCode: stock.mic_code || profile.exchange || "N/A",
-          },
-          image:
-            profile.logo ||
-            (profile.weburl
-              ? `https://logo.clearbit.com/${new URL(profile.weburl).hostname}`
-              : null),
-        }
+            micCode: (profile.exchange && profile.exchange.split(" ")[0]) || "N/A",
+            instrumentType: profile.type || "N/A",
+          }
 
-        setStockData(data);
+
+        });
+
+        setLoading(false);
       } catch (err) {
         console.error("Error fetching stock data:", err);
+        setLoading(false);
       }
-    }
+    };
 
     fetchStockData();
   }, [symbol]);
@@ -84,8 +74,14 @@ export const Data = ({ children }) => {
   return (
     <StockContext.Provider value={{ stockData, setStockData }}>
       {children}
+      <div className="z-9999">
+        {stockData && (
+          <>
+          </>
+        )}
+      </div>
     </StockContext.Provider>
   );
-}
+};
 
-export const useStockData = () => useContext(StockContext)
+export const useStockData = () => useContext(StockContext);
