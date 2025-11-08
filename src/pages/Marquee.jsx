@@ -39,7 +39,7 @@ const Marquee = () => {
     }, [])
 
     // ✅ Remove leading comma
-    const loopStocks = [...stocks, ...stocks]
+    const loopStocks = [...stocks, ...stocks, ...stocks, ...stocks]
 
     return (
         <div className='w-full h-full'>
@@ -53,13 +53,13 @@ const Marquee = () => {
 
                 <motion.div
                     animate={{ x: ['0%', '-50%'] }}
-                    transition={{ repeat: Infinity, duration: 24, ease: 'linear' }}
+                    transition={{ repeat: Infinity, duration: 50, ease: 'linear' }}
                     className='cont flex items-center space-x-3 w-max'
                 >
                     {loopStocks.map((item, i) => (
                         <div
                             key={i}
-                            className='rounded-[3vh] backdrop-blur-[0.6vh] border border-white/20 bg-white/7 py-1.5 px-2 pr-3 w-auto flex flex-shrink-0 items-center space-x-2.5 bg-[#161616'>
+                            className='rounded-full backdrop-blur-[0.6vh] border border-white/20 bg-white/7 py-1.5 px-2 pr-3 w-auto flex flex-shrink-0 items-center space-x-2.5 bg-[#161616'>
                             {/* ✅ Show company logo */}
                             <img src={item.logo} alt={item.symbol} className='w-10 h-10 rounded-full border border-white/30 object-contain' />
 
