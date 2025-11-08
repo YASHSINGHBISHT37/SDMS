@@ -41,19 +41,19 @@ const Nav = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2, // delay between each item
-        delayChildren: 0.2,   // delay before first animation
+        staggerChildren: 0.1, // delay between each item
+        delayChildren: 0.1,   // delay before first animation
       },
     },
   }
 
   // Animation for each link
-  const itemVariants = {
+  const itemVariants = {  
     hidden: { x: -250, opacity: 0 },
     visible: {
       x: 0,
       opacity: 1,
-      transition: { duration: 0.5, ease: 'easeInOut' },
+      transition: { duration: 0.4, ease: 'easeInOut' },
     },
     exit: { x: -250, opacity: 0, transition: { duration: 0.3 } },
   }
@@ -131,7 +131,6 @@ const Nav = () => {
             </motion.div>
           )}
         </AnimatePresence>
-
 
       </div>
     </div>

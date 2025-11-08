@@ -12,15 +12,11 @@ export const Data = ({ children }) => {
     async function fetchStockData() {
       try {
         const stockdataAPI = "EH66amcigezyIpMlfy7FjM1JjMCD1D0YtQ5CTMC4";
-        const finnhubAPI = "d43rh49r01qge0cv7f90d43rh49r01qge0cv7f9g";
+        const finnhubAPI = "d47f8fpr01qh8nncds1gd47f8fpr01qh8nncds20";
 
         const [quoteRes, profileRes] = await Promise.all([
-          axios.get(
-            `https://api.stockdata.org/v1/data/quote?symbols=${symbol}&api_token=${stockdataAPI}`
-          ),
-          axios.get(
-            `https://finnhub.io/api/v1/stock/profile2?symbol=${symbol}&token=${finnhubAPI}`
-          ),
+          axios.get(`https://api.stockdata.org/v1/data/quote?symbols=${symbol}&api_token=${stockdataAPI}`),
+          axios.get(`https://finnhub.io/api/v1/stock/profile2?symbol=${symbol}&token=${finnhubAPI}`),
         ])
 
         const stock = quoteRes.data.data?.[0]

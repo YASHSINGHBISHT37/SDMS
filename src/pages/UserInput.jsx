@@ -11,7 +11,7 @@ const UserInput = () => {
     const wrapperRef = useRef(null)
     const [userInput, setUserInput] = useState('')
     const [suggestions, setSuggestions] = useState([])
-    const API = 'd415j31r01qo6qdf1ga0d415j31r01qo6qdf1gag'
+    const API = 'd46d2g9r01qgc9es8eggd46d2g9r01qgc9es8eh0'
 
     useEffect(() => {
         if (userInput.trim().length < 2) {
@@ -61,11 +61,11 @@ const UserInput = () => {
     }
 
     return (
-        <div ref={wrapperRef} className='relative w-full z-99 space-y-1 px-3'>
+        <div ref={wrapperRef} className='relative w-full z-999999 space-y-1 px-3'>
 
             <div className='relative w-full'>
                 <AnimatePresence>
-                    <div className='relative z-50 overflow-auto backdrop-blur-[1vh] bg-white/5 border border-blue-500/50 border-white/20 rounded-2xl h-10 w-full pl-2 pr-1 text-blue-500 text-white flex items-center space-x-1'>
+                    <div className='relative z-50 overflow-auto backdrop-blur-[1vh] bg-white/5 border border-blue-500/50 border-white/20 rounded-full h-10 w-full pl-2 pr-0.5 text-blue-500 text-white flex items-center space-x-1'>
                         <img src="icons/search.png" className='w-6 h-6 opacity-50' />
                         <input ref={inputRef} value={userInput} onChange={(e) => setUserInput(e.target.value)} type="text" placeholder='Search Stock...' className='w-full h-full outline-0 pr-7' />
                         {userInput && (
@@ -79,21 +79,21 @@ const UserInput = () => {
                         )}
                         <button
                             onClick={() => stockData(userInput.toUpperCase())}
-                            className='bg-[#161616]/90 cursor-pointer backdrop-blur-2xl rounded-[1.4vh] border border-white/14 text-blue-500 w-20 p-1 active:bg-white/5 transition-all duration-200 ease-in-out'>Search
+                            className='bg-[#161616]/90 cursor-pointer backdrop-blur-2xl rounded-full border border-white/14 text-blue-500 w-20 p-1 active:bg-white/5 transition-all duration-200 ease-in-out'>Search
                         </button>
                     </div>
                 </AnimatePresence>
 
                 {suggestions.length > 0 && (
-                    <ul className='Suggestions bg-[#161616] backdrop-blur-[.8vh] bg absolute w-full max-h-54 top-0 border border-white/30 rounded-2xl overflow-auto'>
+                    <ul className='Suggestions bg-[#161616] backdrop-blur-[.8vh] bg absolute w-full max-h-54 top-0 border border-white/30 rounded-3xl overflow-auto'>
                         {suggestions.map((stock, i) => (
                             <li
                                 key={i}
                                 onClick={() => stockData(stock.symbol)}
-                                className={`text-white flex justify-between items-center p-1 px-3 cursor-pointer font-bold active:bg-[#161616]/20 hover:bg-[#161616]/10
+                                className={`text-white flex justify-between items-center p-1 px-3 cursor-pointer font- active:bg-[#161616]/20 hover:bg-[#161616]/10
                                 ${i === suggestions.length - 1 ? 'border-0' : 'border-b border-white/30'}
                                 ${i === 0 ? 'mt-9.5' : ''}`}>
-                                <p className="font-">{stock.symbol}</p>
+                                <p className="text-[1.8vh]">{stock.symbol}</p>
                                 <p className="text-[1.5vh] opacity-70 text-right">{stock.description}</p>
                             </li>
                         ))}
@@ -101,7 +101,7 @@ const UserInput = () => {
                 )}
             </div>
 
-            <p className='text-center text-white/60 text-[1.4vh]'> Search Stock... </p>
+            {/* <p className='text-center text-white/60 text-[1.4vh]'> Search Stock... </p> */}
 
             <p className="text-center text-white/50 text-[1.4vh] tracking-wide">
                 Data Source:&nbsp;
