@@ -6,6 +6,7 @@ import Nav from './pages/Nav'
 import Marquee from './pages/Marquee'
 import { Data } from './pages/Data'
 import Menu from './pages/Menu'
+import Loading from './pages/Loading'
 
 const App = () => {
 
@@ -17,10 +18,11 @@ const App = () => {
           <h1 className='text-blue-500 font-bold text-[32vh] leading-0 pt-65'>SM</h1>
           <h1 className='text-blue-500 font-bold text-[32vh] leading-'>DS</h1>
         </div>
+        <Loading />
 
         {/* <Data /> */}
         <Nav className='pointer-events-none' />
-        <UserInput  className='pointer-events-auto'/>
+        <UserInput className='pointer-events-auto' />
         <Marquee />
         <ShowData />
         <About />
