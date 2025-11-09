@@ -58,12 +58,14 @@ const Nav = () => {
     exit: { x: -250, opacity: 0, transition: { duration: 0.3 } },
   }
 
-  if (!stockData) return
-
-  const profitPositive = parseFloat(stockData.profit.value) >= 0
+  const symbol = stockData?.symbol || 'SMDS'
+  const price = stockData?.price || null
+  const profitPositive = stockData?.profit
+    ? parseFloat(stockData.profit.value) >= 0
+    : null
 
   return (
-    <div className="fixed top-0 z-9999999 w-full h-full pointer-events-none">
+    <div className="fixed top-0 z-9999999 w-full h-full pointer-events-auto">
       <div className="">
 
         {/* Nav */}
@@ -81,31 +83,33 @@ const Nav = () => {
           </div>
 
           {/* --- Scrolled Stock Bar --- */}
-          <div className={`Stock-bar absolute left-0 top-0 w-full h-full flex justify-between items-center text-white px-3 transition-all duration-400 ease-in-out
+          {stockData && (
+            <div className={`Stock-bar absolute left-0 top-0 w-full h-full flex justify-between items-center text-white px-3 transition-all duration-400 ease-in-out
             ${stockbar ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}>
-            <div className="flex items-center space-x-1.5">
-              <div className="border border-white/20 rounded-full w-7 h-7 overflow-hidden">
-                {stockData.image ? (
-                  <img src={stockData.image} alt={stockData.symbol} className="rounded-full w-full h-full object-cover" />
-                ) : (
-                  <div className="bg-white/70 w-full h-full rounded-full" />
-                )}
+              <div className="flex items-center space-x-1.5">
+                <div className="border border-white/20 rounded-full w-7 h-7 overflow-hidden">
+                  {stockData.image ? (
+                    <img src={stockData.image} alt={stockData.symbol} className="rounded-full w-full h-full object-cover" />
+                  ) : (
+                    <div className="bg-white/70 w-full h-full rounded-full" />
+                  )}
+                </div>
+                <h1 className="cursor-pointer text-[2.2vh] font-bold">{stockData.symbol}</h1>
               </div>
-              <h1 className="cursor-pointer text-[2.2vh] font-bold">{stockData.symbol}</h1>
-            </div>
 
-            <div className="flex items-center space-x-3 font-bold">
-              <span>${stockData.price}</span>
-              <p
-                className={`flex items-center ${profitPositive ? 'text-green-500' : 'text-red-500'
-                  }`}
-              >
-                {stockData.profit.value}
-                <div className="w-[0.4vh] h-[0.4vh] mx-1 bg-white/70 rounded-full"></div>
-                {stockData.profit.percent}
-              </p>
+              <div className="flex items-center space-x-3 font-bold">
+                <span>${stockData.price}</span>
+                <p
+                  className={`flex items-center ${profitPositive ? 'text-green-500' : 'text-red-500'
+                    }`}
+                >
+                  {stockData.profit.value}
+                  <div className="w-[0.4vh] h-[0.4vh] mx-1 bg-white/70 rounded-full"></div>
+                  {stockData.profit.percent}
+                </p>
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         {/* Menu */}

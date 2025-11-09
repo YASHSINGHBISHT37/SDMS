@@ -5,18 +5,25 @@ const StockContext = createContext();
 
 export const Data = ({ children }) => {
   const [stockData, setStockData] = useState(null);
-  const [symbol, setSymbol] = useState("META"); // default symbol
-  const [loading, setLoading] = useState(true);
+  const [symbol, setSymbol] = useState(null);
+  const [loading, setLoading] = useState(false);
   const FINNHUB_API = "d47jlg1r01qkdqhr1540d47jlg1r01qkdqhr154g";
 
   const fetchStockData = async (newSymbol) => {
+    const sym = newSymbol || symbol;
+
+    // 🛑 Stop if symbol is empty or null
+    if (!sym || sym.trim() === "") {
+      setStockData(null);
+      return;
+    }
+
     try {
       setLoading(true);
-      const sym = newSymbol || symbol;
 
       const [quoteRes, profileRes] = await Promise.all([
         axios.get(`https://finnhub.io/api/v1/quote?symbol=${sym}&token=${FINNHUB_API}`),
-        axios.get(`https://finnhub.io/api/v1/stock/profile2?symbol=${sym}&token=${FINNHUB_API}`)
+        axios.get(`https://finnhub.io/api/v1/stock/profile2?symbol=${sym}&token=${FINNHUB_API}`),
       ]);
 
       const quote = quoteRes.data;
@@ -67,18 +74,18 @@ export const Data = ({ children }) => {
         },
       });
 
-      setLoading(false);
-      setSymbol(sym); // update symbol in context
+      setSymbol(sym);
     } catch (err) {
       console.error("Error fetching stock data:", err);
+    } finally {
       setLoading(false);
     }
   };
 
-  // Fetch default stock once
+  // Don't fetch anything on mount unless symbol already set
   useEffect(() => {
-    fetchStockData(symbol);
-  }, []);
+    if (symbol) fetchStockData(symbol);
+  }, [symbol]);
 
   return (
     <StockContext.Provider value={{ stockData, fetchStockData, loading }}>

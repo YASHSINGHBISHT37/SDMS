@@ -42,7 +42,7 @@ const Marquee = () => {
     const loopStocks = [...stocks, ...stocks, ...stocks, ...stocks]
 
     return (
-        <div className='w-full h-full'>
+        <div className='w-full h-full z-999'>
             <div className='Top-Stock mt-4 relative overflow-hidden h-auto flex justify-center'>
 
                 {/* Left fade */}
