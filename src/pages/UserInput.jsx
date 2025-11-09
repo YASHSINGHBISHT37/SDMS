@@ -9,7 +9,7 @@ const UserInput = () => {
   const wrapperRef = useRef(null);
   const [userInput, setUserInput] = useState('');
   const [suggestions, setSuggestions] = useState([]);
-  const API = 'd47jlg1r01qkdqhr1540d47jlg1r01qkdqhr154g';
+  const API = 'd487fg9r01qk80bjppcgd487fg9r01qk80bjppd0';
 
   useEffect(() => {
     if (userInput.trim().length < 2) {
@@ -98,7 +98,7 @@ const UserInput = () => {
                   ${i === 0 ? 'mt-9.5' : ''}`}
               >
                 <div className="flex items-center space-x-1">
-                  <img src={stock.logo || 'icons/default-stock.png'} className="rounded-full border border-white/7 w-6 h-6 bg-amber-400" />
+                  {/* <img src={stock.logo} className="rounded-full border border-white/7 w-6 h-6 bg-amber-400" /> */}
                   <p className="text-[1.8vh]">{stock.symbol}</p>
                 </div>
                 <p className="text-[1.5vh] opacity-70 text-right">{stock.description}</p>

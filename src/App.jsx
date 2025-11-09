@@ -14,7 +14,7 @@ const MainData = () => {
   if (loading || !stockData) {
     return (
       <>
-      <Loading/>
+      {/* <Loading/> */}
         <Nav />
         <UserInput />
       </>
