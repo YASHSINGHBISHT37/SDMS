@@ -92,13 +92,13 @@ const UserInput = () => {
             {suggestions.map((stock, i) => (
               <li
                 key={i}
-                onClick={() => handleSelect(stock.symbol)} // ✅ call handler
+                onClick={() => handleSelect(stock.symbol)}
                 className={`text-white flex justify-between items-center p-1 px-3 cursor-pointer active:bg-[#161616]/20 hover:bg-[#161616]/10
                   ${i === suggestions.length - 1 ? 'border-0' : 'border-b border-white/30'}
                   ${i === 0 ? 'mt-9.5' : ''}`}
               >
                 <div className="flex items-center space-x-1">
-                  <img src={stock.logo} className="rounded-full border border-white/7 w-6 h-6 bg-amber-400" />
+                  <img src={stock.logo || 'icons/default-stock.png'} className="rounded-full border border-white/7 w-6 h-6 bg-amber-400" />
                   <p className="text-[1.8vh]">{stock.symbol}</p>
                 </div>
                 <p className="text-[1.5vh] opacity-70 text-right">{stock.description}</p>

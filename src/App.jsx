@@ -11,9 +11,10 @@ import Loading from './pages/Loading'
 const MainData = () => {
   const { stockData, loading } = useStockData()
 
-  if (!stockData) {
+  if (loading || !stockData) {
     return (
       <>
+      <Loading/>
         <Nav />
         <UserInput />
       </>
@@ -44,7 +45,7 @@ const App = () => {
 
         <MainData />
 
-        <h1 className='fixed mt-4 bottom-4 text-center opacity-60 text-[1.3vh] leading-4 w-full'>Made by <br /> Yash Singh Bisht . Shivam Sharma . Pratham Sharma</h1>
+        <h1 className='fixed mt-4 bottom-4 text-center opacity-60 text-[1.3vh] leading-4 w-full z-9'>Made by <br /> Yash Singh Bisht . Shivam Sharma . Pratham Sharma</h1>
       </div>
     </Data>
   )
