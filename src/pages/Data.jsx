@@ -7,7 +7,7 @@ export const Data = ({ children }) => {
   const [stockData, setStockData] = useState(null);
   const [symbol, setSymbol] = useState(null);
   const [loading, setLoading] = useState(false);
-  const FINNHUB_API = "d487fg9r01qk80bjppcgd487fg9r01qk80bjppd0";
+  const FINNHUB_API = "d4c84o9r01qudf6h3nqgd4c84o9r01qudf6h3nr0";
 
   const fetchStockData = async (newSymbol) => {
     const sym = newSymbol || symbol;
