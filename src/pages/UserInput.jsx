@@ -9,7 +9,7 @@ const UserInput = () => {
   const wrapperRef = useRef(null);
   const [userInput, setUserInput] = useState('');
   const [suggestions, setSuggestions] = useState([]);
-  const API = 'd487fg9r01qk80bjppcgd487fg9r01qk80bjppd0';
+  const API = 'd4c84o9r01qudf6h3nqgd4c84o9r01qudf6h3nr0';
 
   useEffect(() => {
     if (userInput.trim().length < 2) {
